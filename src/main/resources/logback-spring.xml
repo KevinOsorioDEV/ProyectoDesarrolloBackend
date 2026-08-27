@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Propiedad con la ruta y nombre base de tus archivos de log -->
+    <property name="LOG_DIR" value="./logs" />
+    <property name="LOG_FILE_NAME" value="pelicula-app" />
+
+    <!-- Consola (Para seguir viendo los logs en tiempo real en NetBeans) -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Archivo con rotación diaria (Rolling File Appender) -->
+    <appender name="DailyFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${LOG_FILE_NAME}.log</file>
+
+        <!-- Política de rotación basada en el tiempo (diaria) -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Patrón del archivo histórico: guarda los días anteriores con fecha en el nombre -->
+            <fileNamePattern>${LOG_DIR}/archived/${LOG_FILE_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <!-- Opcional: Mantener máximo 30 días de historial para no llenar el disco duro -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Nivel general de la aplicación -->
+    <root level="INFO">
+        <appender-ref ref="Console" />
+        <appender-ref ref="DailyFile" />
+    </root>
+
+</configuration>

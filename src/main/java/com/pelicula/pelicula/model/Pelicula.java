@@ -5,6 +5,7 @@
 package com.pelicula.pelicula.model;
 
 import jakarta.persistence.*;
+import tools.jackson.databind.util.UniqueId;
 
 /**
  *
@@ -18,18 +19,12 @@ public class Pelicula {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "titulo", nullable = false, length = 150) // Mapea 'varchar(150) NN'
+    @Column(name = "titulo", nullable = false, length = 150, unique = true)
     private String titulo;
-
-    @Column(name = "genero", length = 50)
-    private String genero;
 
     // En Java usamos camelCase, Spring lo traduce automáticamente a 'ano_lanzamiento'
     @Column(name = "ano_lanzamiento")
     private Integer anoLanzamiento;
-
-    @Column(name = "director", length = 150)
-    private String director;
 
     @Column(name = "estado")
     private Character estado = 'A';
@@ -42,16 +37,8 @@ public class Pelicula {
         return titulo;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
     public Integer getAnoLanzamiento() {
         return anoLanzamiento;
-    }
-
-    public String getDirector() {
-        return director;
     }
 
     public Character getEstado() {
@@ -66,16 +53,8 @@ public class Pelicula {
         this.titulo = titulo;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
     public void setAnoLanzamiento(Integer anoLanzamiento) {
         this.anoLanzamiento = anoLanzamiento;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
     }
 
     public void setEstado(Character estado) {
