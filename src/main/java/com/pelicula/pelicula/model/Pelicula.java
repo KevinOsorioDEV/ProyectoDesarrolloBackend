@@ -5,8 +5,6 @@
 package com.pelicula.pelicula.model;
 
 import jakarta.persistence.*;
-import tools.jackson.databind.util.UniqueId;
-
 /**
  *
  * @author kmanu
