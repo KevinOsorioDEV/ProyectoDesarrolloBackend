@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 
+import com.pelicula.pelicula.service.PeliculaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class PeliculaController {
     @Autowired
     private PeliculaCompletaRepository peliculaCompletaRepository;
 
+    @Autowired
+    private PeliculaService peliculaService;
+
     @GetMapping
     public List<Pelicula> obtenerTodas() {
 
@@ -45,7 +49,7 @@ public class PeliculaController {
     @PostMapping
     public Pelicula guardarPelicula(@RequestBody Pelicula nuevaPelicula){
         log.info("-> Guardando una nueva película: {}, {},{}", nuevaPelicula.getId(), nuevaPelicula.getTitulo(),nuevaPelicula.getAnoLanzamiento());
-        return peliculaRepository.save(nuevaPelicula);
+        return peliculaService.crearPelicula(nuevaPelicula);
     }
     //Actualizar estado peliculas
     @PatchMapping("/{titulo}/estado")
